@@ -29,7 +29,7 @@ setInterval(async () => {
             },
         ]
     }).then(res => {
-        console.log('succ');
+        console.log('上报成功');
     }, err => {
         console.log('fail');
     })
