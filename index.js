@@ -1,7 +1,6 @@
 const config = require('./config');
 const os = require('os-utils');
 const axios = require('axios');
-
 const getRate = () => {
     return new Promise(resolve => {
         os.cpuUsage((v) => {
@@ -12,7 +11,6 @@ const getRate = () => {
         })
     })
 }
-
 setInterval(async () => {
     let data = await getRate();
     let time = parseInt(new Date().getTime() / 1000);
@@ -22,21 +20,17 @@ setInterval(async () => {
         url: '/api/put',
         data: [
             {
-                metric: 'sys.cpu',
-                timestamp: time,
-                value: data.cpuRate,
-                tags: {myType: 'cpu'}
+                metric: 'sys.cpu', timestamp: time,
+                value: data.cpuRate, tags: { myType: 'cpu' }
             },
             {
-                metric: 'sys.mem',
-                timestamp: time,
-                value: data.memRate,
-                tags: {myType: 'mem'}
+                metric: 'sys.mem',timestamp: time,
+                value: data.memRate,tags: { myType: 'mem' }
             },
         ]
     }).then(res => {
-        console.log('写入成功');
+        console.log('succ');
     }, err => {
-        console.log('写入失败');
+        console.log('fail');
     })
 }, config.interval);
